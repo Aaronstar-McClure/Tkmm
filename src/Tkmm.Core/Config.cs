@@ -218,8 +218,13 @@ public sealed partial class Config : ConfigModule<Config>
             return;
         }
 
-        if (!Directory.Exists(newValue)) {
-            Directory.CreateDirectory(newValue);
+        if (!Directory.Exists(newValue) && !string.IsNullOrWhiteSpace(newValue)) {
+            try {
+                Directory.CreateDirectory(newValue);
+            }
+            catch (Exception ex) {
+                TkLog.Instance.LogError(ex, "Invalid merge output: {MergeOutput}", newValue);
+            }
         }
 
         ExportLocations.Reset(newValue);
