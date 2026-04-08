@@ -23,6 +23,7 @@ public sealed partial class ExportLocations : ObservableCollection<ExportLocatio
     public void Reset(string mergeOutputFolder)
     {
         foreach (var target in GetValidTargets(this).Where(path => new DirectoryInfo(path).LinkTarget is not null)) {
+            // Deletes the symlink directory, not a real folder
             Directory.Delete(target);
         }
         

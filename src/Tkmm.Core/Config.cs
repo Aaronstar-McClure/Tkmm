@@ -218,19 +218,6 @@ public sealed partial class Config : ConfigModule<Config>
             return;
         }
 
-        if (Directory.Exists(oldValue)) {
-            try {
-                if (Directory.Exists(newValue)) {
-                    Directory.Delete(newValue, true);
-                }
-
-                Directory.Move(oldValue, newValue);
-            }
-            catch (Exception ex) {
-                TkLog.Instance.LogError(ex, Locale["Config_ErrorFailedToMoveMergeOutput"], oldValue, newValue);
-            }
-        }
-
         if (!Directory.Exists(newValue)) {
             Directory.CreateDirectory(newValue);
         }
